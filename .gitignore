@@ -1,0 +1,8 @@
+*
+!*/
+!src/*
+!README.md
+!LICENSE
+!Cargo.toml
+!.gitignore
+.idea

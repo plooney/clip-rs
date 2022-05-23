@@ -1,0 +1,10 @@
+[package]
+name = "clipper"
+version = "6.4.2"
+authors = ["Padraig Looney"]
+
+[dependencies]
+
+[features]
+use_int32 = []
+use_int128 = []
