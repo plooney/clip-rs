@@ -33,6 +33,8 @@
 #![allow(unused_macros)]
 
 #[macro_use]
+extern crate ordered_float;
+use ordered_float::OrderedFloat;
 pub mod macros;
 pub mod consts;
 pub mod active_edge;
@@ -40,7 +42,7 @@ pub mod node;
 pub mod point;
 
 use std::{error::Error, fmt};
-use std::collections::{HashMap, LinkedList};
+use std::collections::{BTreeMap, HashMap, LinkedList};
 use std::fmt::Display;
 use std::marker::PhantomData;
 use std::sync::Arc;
@@ -393,6 +395,53 @@ pub fn clip_polys(subject: &Path, clip: &Path,  ) -> Result<Path, ClipErr>{
     DoTopOfScanbeam(y);
     while (PopHorz(e)) DoHorizontal(*e);
      */
+    /*
+    Build LMT;
+    Set AET to null;
+    For each scanbeam do;
+        Set yb and yt to bottom and top of the scanbeam.
+        If LMT node corresponding to yb exists ;
+            AddEdges(LMTnode)
+        Build Intersection Table (IT) for the current scanbeam;
+        For each node in IT;
+            Set edge1 and edge2 from the
+            IT node; /* edge1 precedes
+            edge2 in AET */
+            Classify the point of
+            intersection 'p';
+            Switch (class of p) do;
+                Case(LI KE__EDGE_INT):
+                    If edge 1 is contributing:
+                        AddLeft(edge 1,p);
+                        AddRight(edge2,p);
+                        Exchange edge 1->side
+                        and edge2->side;
+                Case(LOCAL_MAX):
+                    AddLocalMax(edge 1 ,p);
+                Case(LEFT_INT):
+                    AddLeft(edge2,p);
+                Case(RIGHT_INT):
+                    AddRight(edge I ,p);
+                Case(LOCAL_MIN):
+                    AddLocalMin(edge 1,p);
+                Swap edge1 and edge2 positions in the AET;
+                Exchange edge1->poly and edge2->poly;
+        For each AETedge do;
+            If AETedge is terminating at yt
+                Classify the upper end vertex 'p' of AETedge;
+                Switch (class of p)
+                    Case(LOCAL_MAX):
+                        AddLocalMax(AETedge,p);
+                        Delete AETedge and AETedge->next from the AET;
+                    Case(LEFT_INT):
+                        AddLeft(edge2,p);
+                        Replace AETedge by AETedge-> succ;
+                    Case(RIGHT_INT):
+                        AddRight(edge 1 ,p);
+                        Replace AETedge by AETedge->succ;
+     */
+    let mut my_map:HashMap<OrderedFloat<f64>, bool> = HashMap::new();
+    my_map.insert(OrderedFloat(1.0f64),false);
 
    Err(ClipErr)
 }

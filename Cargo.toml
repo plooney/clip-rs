@@ -4,6 +4,7 @@ version = "6.4.2"
 authors = ["Padraig Looney"]
 
 [dependencies]
+ordered-float = "3.0.0"
 
 [features]
 use_int32 = []
